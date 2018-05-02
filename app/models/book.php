@@ -15,21 +15,18 @@ class Book
     public $author;
 
     // constructor with $db as database connection
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->conn = $db;
     }
 
-    function read()
-    {
+    function read() {
         $query = "SELECT * FROM book_view";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    function create()
-    {
+    function create() {
         // query to insert record
         $query = "
             INSERT INTO book_view 
@@ -39,17 +36,21 @@ class Book
                 YearofPublication = :year_of__publication, 
                 Genre = :genre, 
                 MillionsSold = :millions_sold,
-                LanguageWritten = :language
+                LanguageWritten = :language,
+                Plot = :plot,
+                Author = :author,
                 ";
-        // prepare query
-        $stmt = $this->conn->prepare($query);
-        // sanitize
+
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->original_title = htmlspecialchars(strip_tags($this->original_title));
         $this->year_of_publication = htmlspecialchars(strip_tags($this->year_of_publication));
         $this->genre = htmlspecialchars(strip_tags($this->genre));
         $this->millions_sold = htmlspecialchars(strip_tags($this->millions_sold));
         $this->language = htmlspecialchars(strip_tags($this->language));
+        $this->author = htmlspecialchars(strip_tags($this->author));
+        $this->plot = htmlspecialchars(strip_tags($this->plot));
+        // prepare query
+        $stmt = $this->conn->prepare($query);
         // bind values
         $stmt->bindParam(":title", $this->title);
         $stmt->bindParam(":original_title", $this->original_title);
@@ -57,6 +58,9 @@ class Book
         $stmt->bindParam(":genre", $this->genre);
         $stmt->bindParam(":millions_sold", $this->millions_sold);
         $stmt->bindParam(":language", $this->language);
+        $stmt->bindParam(":author", $this->author);
+        $stmt->bindParam(":plot", $this->plot);
+
         // execute query
         if ($stmt->execute()) {
             return true;

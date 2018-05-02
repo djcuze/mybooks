@@ -10,6 +10,7 @@
     <script src='app/assets/vendor/jquery-3.3.1.min.js'></script>
     <script src='app/assets/vendor/axios.js' defer></script>
     <script src='app/assets/app.js' defer></script>
+    <link rel="stylesheet" href="public/style.css">
 </head>
 <body>
 <main id="app">

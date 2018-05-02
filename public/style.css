@@ -1,0 +1,40 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+form li {
+    list-style: none;
+}
+
+form li span {
+    display: block;
+    font-weight: bold;
+}
+
+form input:not(.submit) {
+    width: 15rem;
+    padding: .375rem;
+    margin: 0.25rem 0 0.5rem;
+}
+
+.submit {
+    align-self: center;
+}
+
+form textarea {
+    width: 100%;
+    padding: .5rem;
+    min-height: 8rem;
+}
+
+form ul:first-of-type {
+    display: grid;
+    grid-row: 1;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+}
+
+/* Books */
+article {
+    margin: 2rem 0;
+    border-bottom: 2px solid #333333;
+}

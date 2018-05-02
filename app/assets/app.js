@@ -1,4 +1,9 @@
 let book = {
+    data() {
+        return {
+            editable: false
+        }
+    },
     props: ['book'],
     methods: {
         deleteBook(id) {
@@ -7,6 +12,12 @@ let book = {
             }).catch(error => {
                 console.log(error);
             });
+        },
+
+    },
+    computed: {
+        isEditable: function () {
+            return this.editable;
         }
     },
     template: '#book_template'
