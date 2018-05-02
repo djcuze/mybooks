@@ -13,7 +13,26 @@ let book = {
                 console.log(error);
             });
         },
+        updateBook(book) {
+            axios.post('/assignment_3/app/controllers/books/update.php', {
+                id: book.id,
+                title: book.title,
+                original_title: book.original_title,
+                year_of_publication: book.year_of_publication,
+                genre: book.genre,
+                millions_sold: book.millions_sold,
+                language: book.language,
+                plot: book.plot,
+                author: book.author,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            this.editable = false
+        },
+        createBook() {
 
+        }
     },
     computed: {
         isEditable: function () {
@@ -21,6 +40,10 @@ let book = {
         }
     },
     template: '#book_template'
+};
+let new_book = {
+    name: 'new_book',
+    template: '#new_book_template'
 };
 let books_index = {
     name: 'books_index',
@@ -51,6 +74,7 @@ let books_index = {
 
 let routes = [
     {path: '/', component: books_index},
+    {path: '/new', component: new_book},
 ];
 let router = new VueRouter({
     routes,

@@ -13,15 +13,18 @@ include_once '../../models/book.php';
 $database = new Database();
 $db = $database->getConnection();
 
+print_r($_POST);
 $book = new Book($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
-
 // set book property values
-$book->book_date = $_POST['book_date'];
-$book->book_number = $_POST['book_number'];
-$book->supplier_id = $_POST['supplier_id'];
+$book->title = $_POST['title'];
+$book->original_title = $_POST['original_title'];
+$book->year_of_publication = $_POST['year_of_publication'];
+$book->genre = $_POST['genre'];
+$book->millions_sold = $_POST['millions_sold'];
+$book->language = $_POST['language'];
 
 // create the book
 if ($book->create()) {

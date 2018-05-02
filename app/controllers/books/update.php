@@ -8,35 +8,34 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../../config/database.php';
-include_once '../../models/invoice.php';
-
-// get database connection
+include_once '../../models/book.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$invoice = new Invoice($db);
+$book = new Book($db);
 
-// get id of product to be edited
+// get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// set ID property of product to be edited
-$invoice->id = $data->id;
+// set book property values
+$book->title = $data->title;
+$book->original_title = $data->original_title;
+$book->year_of_publication = $data->year_of_publication;
+$book->genre = $data->genre;
+$book->millions_sold = $data->millions_sold;
+$book->language = $data->language;
+//$book->plot = $data->plot;
+//$book->author = $data->author;
 
-// set product property values
-$invoice->id = $data->id;
-$invoice->invoice_number = $data->invoice_number;
-$invoice->invoice_date = $data->invoice_date;
-$invoice->supplier_id = $data->supplier_id;
-
-// update the product
-if ($invoice->update()) {
+// create the book
+if ($book->update()) {
     echo '{';
-    echo '"message": "Invoice was updated."';
+    echo '"message": "Book was updated successfully."';
     echo '}';
-} // if unable to update the product, tell the user
+} // if unable to create the book, tell the user
 else {
     echo '{';
-    echo '"message": "Unable to update invoice."';
+    echo '"message": "Unable to create book."';
     echo '}';
 }
 ?>
