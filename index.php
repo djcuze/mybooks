@@ -7,12 +7,7 @@
     <title>Books</title>
 </head>
 <body>
-<header>
-    <ul class="navigation">
-        <li class="navigation_item">Books</li>
-    </ul>
-    <button class="login">Login</button>
-</header>
+<?php include_once 'app/views/layout/header.php' ?>
 <main class="content">
     <article class="book">
         <h1>Book Title</h1>
