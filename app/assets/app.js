@@ -46,36 +46,40 @@ let new_book = {
     template: '#new_book_template'
 };
 let show_book = {
-    name: 'show_book',
-    template: '#show_book_template',
-    data() {
-        return {
-            title: null,
-            original_title: null,
-            year_of_publication: null,
-            genre: null,
-            language: null,
-            millions_sold: null
-        }
-    },
-    mounted() {
-        this.fetchData()
-    },
-    methods: {
-        fetchData() {
-            axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + id)
-                .then(response => {
-                    console.log(response.data);
-                    this.title = response.data.title;
-                    this.original_title = response.data.original_title;
-                    this.year_of_publication = response.data.year_of_publication;
-                    this.genre = response.data.genre;
-                    this.language = response.data.language;
-                    this.millions_sold = response.data.millions_sold;
-                })
+        name: 'show_book',
+        template: '#show_book_template',
+        data() {
+            return {
+                title: null,
+                original_title: null,
+                year_of_publication: null,
+                genre: null,
+                language: null,
+                millions_sold: null
+            }
+        },
+        mounted() {
+            this.fetchData()
+        },
+        methods: {
+            fetchData() {
+                axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + this.$route.params.id)
+                    .then(response => {
+                        console.log(response.data);
+                        this.title = response.data.title;
+                        this.original_title = response.data.original_title;
+                        this.year_of_publication = response.data.year_of_publication;
+                        this.genre = response.data.genre;
+                        this.language = response.data.language;
+                        this.millions_sold = response.data.millions_sold;
+                    })
+            }
+        },
+        beforeRouteUpdate(to, from, next) {
+
         }
     }
-};
+;
 let books_index = {
     name: 'books_index',
     data() {
@@ -106,7 +110,7 @@ let books_index = {
 let routes = [
     {path: '/', component: books_index},
     {path: '/new', component: new_book},
-    {path: '/show', component: show_book},
+    {name: 'book', path: '/book/:id', component: show_book},
 ];
 let router = new VueRouter({
     routes,

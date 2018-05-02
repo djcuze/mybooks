@@ -3,7 +3,7 @@
     <section>
         <div v-for="book in books">
             <p>{{ book.title }}</p>
-            <router-link to="show">Show</router-link>
+            <router-link :to="{ name: 'book', params: { id: book.id }}">Show</router-link>
         </div>
     </section>
 </script>
