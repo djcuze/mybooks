@@ -90,15 +90,14 @@ class Book
     function update()
     {
         try {
-            $query = "UPDATE 
-              book_view
+            $query = "UPDATE book
             SET 
                 title = :title, 
                 original_title = :original_title, 
                 year_of_publication = :year_of_publication, 
                 genre = :genre, 
                 millions_sold = :millions_sold,
-                book_view.language = :book_view.language
+                language = :language
             WHERE
                 id = :id";
             $stmt = $this->conn->prepare($query);

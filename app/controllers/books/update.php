@@ -15,17 +15,16 @@ $db = $database->getConnection();
 $book = new Book($db);
 
 // get posted data
-$data = json_decode(file_get_contents("php://input"));
-
+$array = json_decode(file_get_contents("php://input"), true);
+$data = json_decode(json_encode($array), FALSE);
 // set book property values
+$book->id = $data->id;
 $book->title = $data->title;
 $book->original_title = $data->original_title;
 $book->year_of_publication = $data->year_of_publication;
 $book->genre = $data->genre;
 $book->millions_sold = $data->millions_sold;
 $book->language = $data->language;
-//$book->plot = $data->plot;
-//$book->author = $data->author;
 
 // create the book
 if ($book->update()) {
