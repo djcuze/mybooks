@@ -168,8 +168,7 @@ let books_index = {
         this.fetchData();
     },
     components: {
-        book,
-        // notice
+        book
     },
     template: '#show_all_books_template',
 };
