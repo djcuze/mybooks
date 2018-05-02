@@ -69,8 +69,8 @@ class Book
         // query to read single record
         $query = "
             SELECT *
-            FROM book_view
-            WHERE BookID = :id
+            FROM book
+            WHERE id = :id
             LIMIT 1";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -78,15 +78,13 @@ class Book
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         // set values to object properties
-        $this->id = $row['BookID'];
+        $this->id = $row['id'];
         $this->title = $row['title'];
         $this->original_title = $row['original_title'];
         $this->year_of_publication = $row['year_of_publication'];
         $this->genre = $row['genre'];
         $this->millions_sold = $row['millions_sold'];
         $this->language = $row['language'];
-        $this->author = $row['author'];
-        $this->plot = $row['plot'];
     }
 
     function update()
