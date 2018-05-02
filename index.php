@@ -10,12 +10,13 @@
     <script src='app/assets/vendor/jquery-3.3.1.min.js'></script>
     <script src='app/assets/vendor/axios.js' defer></script>
     <script src='app/assets/app.js' defer></script>
+    <link rel="stylesheet" href="app/assets/reset.css">
     <link rel="stylesheet" href="public/style.css">
 </head>
 <body>
 <main id="app">
     <?php include_once 'app/views/layout/header.php' ?>
-    <router-view></router-view>
+    <router-view class="content"></router-view>
 </main>
 </body
 </html>

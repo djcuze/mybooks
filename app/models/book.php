@@ -127,7 +127,7 @@ class Book
 
     function delete()
     {
-        $query = "DELETE FROM book_view WHERE BookID = :id";
+        $query = "DELETE FROM book WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);

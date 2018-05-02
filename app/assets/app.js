@@ -6,13 +6,6 @@ let book = {
     },
     props: ['book'],
     methods: {
-        deleteBook(id) {
-            axios.post('/assignment_3/app/controllers/books/delete.php', {
-                id: id
-            }).catch(error => {
-                console.log(error);
-            });
-        },
         updateBook(book) {
             axios.post('/assignment_3/app/controllers/books/update.php', {
                 id: book.id,
@@ -153,6 +146,11 @@ let books_index = {
             books: [],
         };
     },
+    computed: {
+        booksArray() {
+            return this.books
+        }
+    },
     methods: {
         fetchData() {
             axios.get('/assignment_3/app/controllers/books/read.php')
@@ -162,7 +160,20 @@ let books_index = {
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        },
+        deleteBook(id) {
+            axios.post('/assignment_3/app/controllers/books/delete.php', {
+                id: id
+            }).catch(error => {
+                console.log(error);
+                this.$parent.notice.message = 'There was an error deleting the book';
+                this.$parent.notice.css = 'error';
+            });
+            this.$router.push('/');
+            this.$parent.notice.message = 'Book Deleted Successfully';
+            this.$parent.notice.css = 'success';
+            this.fetchData();
+        },
     },
     mounted() {
         this.fetchData();
