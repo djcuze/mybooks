@@ -26,12 +26,12 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $book_item = array(
-            "title" => $title,
-            "original_title" => $original_title,
-            "year_of_publication" => $year_of_publication,
-            "genre" => $genre,
-            "millions_sold" => $millions_sold,
-            "language" => $language,
+            "title" => $BookTitle,
+            "original_title" => $OriginalTitle,
+            "year_of_publication" => $YearofPublication,
+            "genre" => $Genre,
+            "millions_sold" => $MillionsSold,
+            "language" => $LanguageWritten,
         );
         array_push($books_arr["books"], $book_item);
     }
