@@ -4,9 +4,8 @@ class Book
 {
     // database connection and table name
     private $conn;
-    private $table_name = "book";
-    public $title;
     public $id;
+    public $title;
     public $original_title;
     public $year_of_publication;
     public $genre;
@@ -120,7 +119,6 @@ class Book
         if ($stmt->execute()) {
             return true;
         }
-
         return false;
     }
 

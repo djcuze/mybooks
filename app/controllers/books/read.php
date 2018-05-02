@@ -26,6 +26,7 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $book_item = array(
+            "id" => $BookID,
             "title" => $BookTitle,
             "original_title" => $OriginalTitle,
             "year_of_publication" => $YearofPublication,

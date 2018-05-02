@@ -1,20 +1,6 @@
 let book = {
     props: ['book'],
     methods: {
-        fetchData(id) {
-            axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + id)
-                .then(response => {
-                    this.title = response.data.title;
-                    this.original_title = response.data.original_title;
-                    this.year_of_publication = response.data.year_of_publication;
-                    this.genre = response.data.genre;
-                    this.millions_sold = response.data.millions_sold;
-                    this.language = response.data.language;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
         deleteBook(id) {
             axios.post('/assignment_3/app/controllers/books/delete.php', {
                 id: id
@@ -22,9 +8,6 @@ let book = {
                 console.log(error);
             });
         }
-    },
-    created() {
-        this.fetchData(this.id);
     },
     template: '#book_template'
 };
