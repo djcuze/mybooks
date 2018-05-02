@@ -1,7 +1,9 @@
 <script type="text/x-template" id="show_book_template">
-    <article>
-        <h1>{{ title }}</h1>
-        <img src='http://placehold.it/114/162' alt='A Book Cover' class='book__cover'/>
+    <div class="book">
+        <div>
+            <h1 class="book__title">{{ title }}</h1>
+            <img src='http://placehold.it/114/162' alt='A Book Cover' class='book__cover'/>
+        </div>
         <ul>
             <li><span>Publication Year: </span>
                 <p>{{ year_of_publication }}</p>
@@ -19,5 +21,5 @@
                 <p>{{ language }}</p>
             </li>
         </ul>
-    </article>
+    </div>
 </script>

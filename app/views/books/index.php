@@ -1,6 +1,6 @@
 <!-- Creates a Vue Template ( Which is rendered via Vue Router ) -->
 <script type='text/x-template' id='show_all_books_template'>
-    <section>
+    <section class="book__container">
         <div class="notice">
             <p v-if="this.$parent.notice.message" :class="this.$parent.notice.css ">
                 {{ this.$parent.notice.message }}
