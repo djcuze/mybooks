@@ -108,7 +108,9 @@ let edit_book = {
         },
         methods: {
             fetchData() {
+                // send AJAX request and receive JSON response
                 axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + this.$route.params.id)
+                // assign response values to javascript object data
                     .then(response => {
                         this.id = response.data.id;
                         this.title = response.data.title;
@@ -120,6 +122,7 @@ let edit_book = {
                     })
             },
             submit() {
+                // send updated parameters to update.php
                 axios.post('/assignment_3/app/controllers/books/update.php', {
                     id: this.id,
                     title: this.title,
@@ -131,6 +134,7 @@ let edit_book = {
                     headers: {
                         "Content-Type": "application/json"
                     }
+                    // catch any errors
                 }).catch(function (error) {
                     this.$parent.notice.message = 'There was an error updating the book';
                     this.$parent.notice.status = 'error';
@@ -139,8 +143,6 @@ let edit_book = {
                 this.$parent.notice.css = 'success';
                 this.$router.push('/');
             }
-        },
-        beforeRouteUpdate(to, from, next) {
         }
     }
 ;
@@ -173,6 +175,7 @@ let books_index = {
 };
 
 let routes = [
+    // more info on VueJS Routing:      https://router.vuejs.org/en/essentials/getting-started.html
     {path: '/', component: books_index},
     {path: '/new', component: new_book},
     {name: 'book', path: '/book/:id', component: show_book},
@@ -182,6 +185,7 @@ let router = new VueRouter({
     routes,
 });
 
+// The root component
 const app = new Vue({
     data() {
         return {
