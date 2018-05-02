@@ -2,7 +2,7 @@ let book = {
     props: ['book'],
     methods: {
         fetchData(id) {
-            axios.get("/assignment_3/app/controllers/books/read_one.php?id=" + id)
+            axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + id)
                 .then(response => {
                     this.title = response.data.title;
                     this.original_title = response.data.original_title;
@@ -14,6 +14,13 @@ let book = {
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        deleteBook(id) {
+            axios.post('/assignment_3/app/controllers/books/delete.php', {
+                id: id
+            }).catch(error => {
+                console.log(error);
+            });
         }
     },
     created() {
@@ -30,7 +37,7 @@ let books_index = {
     },
     methods: {
         fetchData: function () {
-            axios.get("/assignment_3/app/controllers/books/read.php")
+            axios.get('/assignment_3/app/controllers/books/read.php')
                 .then(response => {
                     this.books = response.data.books;
                 })
@@ -59,9 +66,6 @@ const app = new Vue({
     data() {
         return {}
     },
-    // components: {
-    //     books
-    // },
     methods: {},
     router
 }).$mount('#app');

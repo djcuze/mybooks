@@ -12,7 +12,7 @@
                 <button>Update</button>
             </li>
             <li>
-                <button>Delete</button>
+                <button @click.prevent="deleteBook(book.id)">Delete</button>
             </li>
         </ul>
     </article>
