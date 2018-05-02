@@ -11,6 +11,8 @@ class Book
     public $genre;
     public $millions_sold;
     public $language;
+    public $plot;
+    public $author;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -20,7 +22,7 @@ class Book
 
     function read()
     {
-        $query = "SELECT * FROM book";
+        $query = "SELECT * FROM book_view";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -30,7 +32,7 @@ class Book
     {
         // query to insert record
         $query = "
-            INSERT INTO book 
+            INSERT INTO book_view 
             SET 
                 BookTitle = :title, 
                 OriginalTitle = :original_title, 
@@ -67,7 +69,7 @@ class Book
         // query to read single record
         $query = "
             SELECT *
-            FROM book
+            FROM book_view
             WHERE BookID = :id
             LIMIT 1";
         // prepare query statement
@@ -83,6 +85,8 @@ class Book
         $this->genre = $row['Genre'];
         $this->millions_sold = $row['MillionsSold'];
         $this->language = $row['LanguageWritten'];
+        $this->author = $row['Author'];
+        $this->plot = $row['Plot'];
     }
 
     function update()
@@ -124,7 +128,7 @@ class Book
 
     function delete()
     {
-        $query = "DELETE FROM book WHERE BookID = :id";
+        $query = "DELETE FROM book_view WHERE BookID = :id";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
