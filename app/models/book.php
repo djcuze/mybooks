@@ -6,6 +6,7 @@ class Book
     private $conn;
     private $table_name = "book";
     public $title;
+    public $id;
     public $original_title;
     public $year_of_publication;
     public $genre;
@@ -51,8 +52,9 @@ class Book
         $this->genre = htmlspecialchars(strip_tags($this->genre));
         $this->millions_sold = htmlspecialchars(strip_tags($this->millions_sold));
         $this->language = htmlspecialchars(strip_tags($this->language));
-        // bind values
+        // output
         print_r($this);
+        // bind values
         $stmt->bindParam(":title", $this->title);
         $stmt->bindParam(":original_title", $this->original_title);
         $stmt->bindParam(":year_of_publication", $this->year_of_publication);
@@ -69,32 +71,27 @@ class Book
     function readOne()
     {
         // query to read single record
-        $query = "SELECT
-                categories.id, categories.book_number, categories.book_date, suppliers.name AS supplier_name
-            FROM
-                " . $this->table_name . "
-            INNER JOIN suppliers ON categories.supplier_id = suppliers.id
-            WHERE
-                categories.id = ?
-            LIMIT
-                1";
+        $query = "
+            SELECT *
+            FROM book
+            WHERE BookID = ?
+            LIMIT 1";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
-
         // bind id of product to be updated
         $stmt->bindParam(1, $this->id);
-
         // execute query
         $stmt->execute();
-
         // get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
         // set values to object properties
-        $this->id = $row['id'];
-        $this->book_number = $row['book_number'];
-        $this->book_date = $row['book_date'];
-        $this->supplier_name = $row['supplier_name'];
+        $this->id = $row['BookID'];
+        $this->title = $row['BookTitle'];
+        $this->original_title = $row['OriginalTitle'];
+        $this->year_of_publication = $row['YearofPublication'];
+        $this->genre = $row['Genre'];
+        $this->millions_sold = $row['MillionsSold'];
+        $this->language = $row['LanguageWritten'];
     }
 
     function update()

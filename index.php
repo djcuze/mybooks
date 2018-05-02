@@ -18,21 +18,3 @@
 </main>
 </body
 </html>
-
-<script type='text/x-template' id='show_all_books_template'>
-    <article class='book'>
-        <h1>Book Title</h1>
-        <img src='http://placehold.it/114/162' alt='A Book Cover' class='book__cover'/>
-        <ul>
-            <li>Publication Year:</li>
-            <li>Author's Name</li>
-            <li>No. Copies Sold</li>
-            <li>
-                <button>Update</button>
-            </li>
-            <li>
-                <button>Delete</button>
-            </li>
-        </ul>
-    </article>
-</script>

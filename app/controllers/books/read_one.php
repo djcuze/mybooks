@@ -7,20 +7,22 @@ header('Content-Type: application/json');
 
 // include database and object files
 include_once '../../config/database.php';
-include_once '../../models/inventory_item.php';
+include_once '../../models/book.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
-$inventory_item = new InventoryItem($db);
-$inventory_item->id = isset($_GET['id']) ? $_GET['id'] : die();
-$inventory_item->readOne();
-$inventory_item_arr = array(
-    "id" => $inventory_item->id,
-    "description" => $inventory_item->description,
-    "quantity" => $inventory_item->quantity,
-    "category" => $inventory_item->category_id,
-    "image_path" => $inventory_item->image_path,
+$book = new Book($db);
+$book->id = isset($_GET['id']) ? $_GET['id'] : die();
+$book->readOne();
+$book_arr = array(
+    "id" => $book->id,
+    "title" => $book->title,
+    "original_title" => $book->original_title,
+    "year_of_publication" => $book->year_of_publication,
+    "genre" => $book->genre,
+    "millions_sold" => $book->millions_sold,
+    "language" => $book->language,
 );
-print_r(json_encode($inventory_item_arr));
+print_r(json_encode($book_arr));
 ?>
