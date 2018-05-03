@@ -15,9 +15,6 @@ $database = new Database();
 $db = $database->getConnection();
 
 $book = new Book($db);
-
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
 // uploads the file
 fileUpload();
 // set book property values

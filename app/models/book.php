@@ -34,8 +34,7 @@ class Book
         // Begin the transaction
         $pdo->beginTransaction();
         try {
-            $stmt = $this->conn;
-            // Sanitize input
+            // Sanitize
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->original_title = htmlspecialchars(strip_tags($this->original_title));
             $this->year_of_publication = htmlspecialchars(strip_tags($this->year_of_publication));
@@ -107,19 +106,11 @@ class Book
 
     function update()
     {
+        $pdo = $this->conn;
+        // Begin the transaction
         try {
-            $query = "UPDATE books
-            SET 
-                title = :title, 
-                original_title = :original_title, 
-                year_of_publication = :year_of_publication, 
-                genre = :genre, 
-                millions_sold = :millions_sold,
-                language = :language
-            WHERE
-                id = :id";
-            $stmt = $this->conn->prepare($query);
-            // sanitize
+            $pdo->beginTransaction();
+            // Sanitize input
             $this->id = htmlspecialchars(strip_tags($this->id));
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->original_title = htmlspecialchars(strip_tags($this->original_title));
@@ -127,19 +118,71 @@ class Book
             $this->genre = htmlspecialchars(strip_tags($this->genre));
             $this->millions_sold = htmlspecialchars(strip_tags($this->millions_sold));
             $this->language = htmlspecialchars(strip_tags($this->language));
-            // bind values
-            $stmt->bindParam(":id", $this->id);
-            $stmt->bindParam(":title", $this->title);
-            $stmt->bindParam(":original_title", $this->original_title);
-            $stmt->bindParam(":year_of_publication", $this->year_of_publication);
-            $stmt->bindParam(":genre", $this->genre);
-            $stmt->bindParam(":millions_sold", $this->millions_sold);
-            $stmt->bindParam(":language", $this->language);
-            $stmt->execute();
+            $this->image_path = htmlspecialchars(strip_tags($this->image_path));
+
+            if (!empty($_FILES['fileToUpload']['name'])) //new image uploaded
+            {
+                // Query 1: Attempt to update book image
+                echo $this->id;
+                echo $this->image_path;
+                $sql = "UPDATE book_images SET path = :path WHERE id = (SELECT book_image_id FROM books WHERE books.id = :id)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ":path" => $this->image_path,
+                    ":id" => $this->id
+                ));
+                // Query 2: Attempt to insert Book
+                $sql = "UPDATE books 
+                SET 
+                  title = :title, 
+                  original_title = :original_title, 
+                  year_of_publication = :year_of_publication, 
+                  genre = :genre, 
+                  millions_sold = :millions_sold, 
+                  language = :language
+                WHERE id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ":id" => $this->id,
+                    ":title" => $this->title,
+                    ":original_title" => $this->original_title,
+                    ":year_of_publication" => $this->year_of_publication,
+                    ":genre" => $this->genre,
+                    ":millions_sold" => $this->millions_sold,
+                    ":language" => $this->language
+                ));
+            } else // no new image
+            {
+                // Query 2: Attempt to insert Book
+                $sql = "UPDATE books 
+                SET 
+                  title = :title, 
+                  original_title = :original_title, 
+                  year_of_publication = :year_of_publication, 
+                  genre = :genre, 
+                  millions_sold = :millions_sold, 
+                  language = :language
+                WHERE id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ":id" => $this->id,
+                    ":title" => $this->title,
+                    ":original_title" => $this->original_title,
+                    ":year_of_publication" => $this->year_of_publication,
+                    ":genre" => $this->genre,
+                    ":millions_sold" => $this->millions_sold,
+                    ":language" => $this->language
+                ));
+            }
+            // Commit the Changes
+            $pdo->commit();
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
+            // Recognize mistake and roll back changes
+            $pdo->rollBack();
             die();
         }
+
         return true;
     }
 

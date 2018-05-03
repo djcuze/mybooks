@@ -9,24 +9,27 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // include database and object files
 include_once '../../config/database.php';
 include_once '../../models/book.php';
+include_once '../../lib/file_upload.php';
+
 $database = new Database();
 $db = $database->getConnection();
 
 $book = new Book($db);
+if (!empty($_FILES['fileToUpload']['name'])) {
+    // uploads the file
+    fileUpload();
+    $book->image_path = 'public/covers/' . $_FILES["fileToUpload"]["name"];
+}
+// Set book property values
+$book->id = $_POST['id'];
+$book->title = $_POST['title'];
+$book->original_title = $_POST['original_title'];
+$book->year_of_publication = $_POST['year_of_publication'];
+$book->genre = $_POST['genre'];
+$book->millions_sold = $_POST['millions_sold'];
+$book->language = $_POST['language'];
 
-// get posted data
-$array = json_decode(file_get_contents("php://input"), true);
-$data = json_decode(json_encode($array), FALSE);
-// set book property values
-$book->id = $data->id;
-$book->title = $data->title;
-$book->original_title = $data->original_title;
-$book->year_of_publication = $data->year_of_publication;
-$book->genre = $data->genre;
-$book->millions_sold = $data->millions_sold;
-$book->language = $data->language;
-
-// create the book
+// update the book
 if ($book->update()) {
     echo '{';
     echo '"message": "Book was updated successfully."';

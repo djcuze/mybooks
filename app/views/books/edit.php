@@ -1,10 +1,11 @@
 <script type="text/x-template" id="edit_book_template">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" action="/assignment_3/app/controllers/books/update.php" enctype="multipart/form-data">
         <h1>Edit Book</h1>
+        <img :src="image_path" alt="" />
         <ul>
             <input type="hidden" :value="id" name="id">
             <li><span>Title: </span>
-                <input class="form__input" name="title" v-model="title"/>
+                <input class="form__input" name="title"/>
             </li>
             <li><span>Publication Year: </span>
                 <input class="form__input" name="year_of_publication" :value="year_of_publication"/>
@@ -22,9 +23,9 @@
                 <input class="form__input" name="language" :value="language"/>
             </li>
             <li><span>Edit Image: </span>
-                <input type="file" class="form__input" name="fileToUpload" />
+                <input type="file" class="form__input" name="fileToUpload"/>
             </li>
         </ul>
-        <input type="submit" class="submit" @click.prevent="submit()"/>
+        <input type="submit" class="submit"/>
     </form>
 </script>

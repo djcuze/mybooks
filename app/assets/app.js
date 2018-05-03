@@ -5,33 +5,6 @@ let book = {
         }
     },
     props: ['book'],
-    methods: {
-        updateBook(book) {
-            axios.post('/assignment_3/app/controllers/books/update.php', {
-                id: book.id,
-                title: book.title,
-                original_title: book.original_title,
-                year_of_publication: book.year_of_publication,
-                genre: book.genre,
-                millions_sold: book.millions_sold,
-                language: book.language,
-                plot: book.plot,
-                author: book.author,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            this.editable = false
-        },
-        createBook() {
-
-        }
-    },
-    computed: {
-        isEditable: function () {
-            return this.editable;
-        }
-    },
     template: '#book_template'
 };
 let new_book = {
@@ -95,7 +68,8 @@ let edit_book = {
                 year_of_publication: null,
                 genre: null,
                 language: null,
-                millions_sold: null
+                millions_sold: null,
+                image_path: null
             }
         },
         mounted() {
@@ -114,6 +88,7 @@ let edit_book = {
                         this.genre = response.data.genre;
                         this.language = response.data.language;
                         this.millions_sold = response.data.millions_sold;
+                        this.image_path = response.data.image_path;
                     })
             },
             submit() {
@@ -126,6 +101,7 @@ let edit_book = {
                     genre: this.genre,
                     language: this.language,
                     millions_sold: this.millions_sold,
+                    image_path: this.image_path,
                     headers: {
                         "Content-Type": "application/json"
                     }
