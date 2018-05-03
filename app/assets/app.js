@@ -58,7 +58,8 @@ let show_book = {
             year_of_publication: null,
             genre: null,
             language: null,
-            millions_sold: null
+            millions_sold: null,
+            image_path: null
         }
     },
     mounted() {
@@ -73,8 +74,9 @@ let show_book = {
                     this.original_title = response.data.original_title;
                     this.year_of_publication = response.data.year_of_publication;
                     this.genre = response.data.genre;
-                    this.language = response.data.language;
                     this.millions_sold = response.data.millions_sold;
+                    this.language = response.data.language;
+                    this.image_path = response.data.image_path;
                 })
         }
     },

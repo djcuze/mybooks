@@ -1,5 +1,5 @@
 <script type="text/x-template" id="new_book_template">
-    <form method="post" action="/assignment_3/app/controllers/books/create.php">
+    <form method="post" action="/assignment_3/app/controllers/books/create.php" enctype="multipart/form-data">
         <h1>New Book</h1>
         <ul>
             <li><span>Title: </span>
@@ -19,6 +19,9 @@
             </li>
             <li><span>Language: </span>
                 <input class="form__input" name="language"/>
+            </li>
+            <li><span>Upload Image: </span>
+                <input type="file" class="form__input" name="fileToUpload" />
             </li>
         </ul>
         <input type="submit" class="submit"/>

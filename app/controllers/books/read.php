@@ -32,7 +32,8 @@ if ($num > 0) {
             "year_of_publication" => $year_of_publication,
             "genre" => $genre,
             "millions_sold" => $millions_sold,
-            "language" => $language
+            "language" => $language,
+            "image_path" => $image_path
         );
         array_push($books_arr["books"], $book_item);
     }

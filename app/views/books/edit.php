@@ -1,5 +1,5 @@
 <script type="text/x-template" id="edit_book_template">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <h1>Edit Book</h1>
         <ul>
             <input type="hidden" :value="id" name="id">
@@ -20,6 +20,9 @@
             </li>
             <li><span>Language: </span>
                 <input class="form__input" name="language" :value="language"/>
+            </li>
+            <li><span>Edit Image: </span>
+                <input type="file" class="form__input" name="fileToUpload" />
             </li>
         </ul>
         <input type="submit" class="submit" @click.prevent="submit()"/>

@@ -22,7 +22,8 @@ $book_arr = array(
     "year_of_publication" => $book->year_of_publication,
     "genre" => $book->genre,
     "millions_sold" => $book->millions_sold,
-    "language" => $book->language
+    "language" => $book->language,
+    "image_path" => $book->image_path
 );
 print_r(json_encode($book_arr));
 ?>
