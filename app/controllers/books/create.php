@@ -9,11 +9,11 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../../config/database.php';
 include_once '../../models/book.php';
+include_once '../../lib/file_upload.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-print_r($_POST);
 $book = new Book($db);
 
 // get posted data
@@ -27,7 +27,7 @@ $book->year_of_publication = $_POST['year_of_publication'];
 $book->genre = $_POST['genre'];
 $book->millions_sold = $_POST['millions_sold'];
 $book->language = $_POST['language'];
-$book->image_path = '../../public/images/inventory' . $_FILES["fileToUpload"]["name"];
+$book->image_path = 'public/covers/' . $_FILES["fileToUpload"]["name"];
 
 // create the book
 if ($book->create()) {

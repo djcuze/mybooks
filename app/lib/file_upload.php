@@ -5,7 +5,7 @@ function fileUpload()
 {
     $fileToUpload = $_FILES['fileToUpload']['name'];
     print_r($_FILES);
-    $target_dir = "../public/images/inventory";
+    $target_dir = "../../../public/covers/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

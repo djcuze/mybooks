@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 
 class Book
 {
@@ -29,48 +30,49 @@ class Book
 
     function create()
     {
+        $pdo = $this->conn;
+        // Begin the transaction
+        $pdo->beginTransaction();
         try {
             $stmt = $this->conn;
-            $stmt->beginTransaction();
-            // query to insert record
-            $query_for_image = "INSERT INTO book_images
-             SET
-               path = 'http://placehold.it/300/300'
-              ";
-            $stmt->exec($query_for_image);
-            $image_id = $stmt->lastInsertId();
-            echo $image_id;
-            $query_for_book = "INSERT INTO book
-            SET 
-                title=:title, 
-                original_title=:original_title, 
-                year_of_publication=:year_of_publication, 
-                genre=:genre, 
-                millions_sold=:millions_sold,
-                language= :language,
-                AuthorID = 1,
-                book_image_id = $image_id 
-                ";
-            $stmt->exec($query_for_book);
-            // Sanitize parameters
+            // Sanitize input
             $this->title = htmlspecialchars(strip_tags($this->title));
             $this->original_title = htmlspecialchars(strip_tags($this->original_title));
             $this->year_of_publication = htmlspecialchars(strip_tags($this->year_of_publication));
             $this->genre = htmlspecialchars(strip_tags($this->genre));
             $this->millions_sold = htmlspecialchars(strip_tags($this->millions_sold));
             $this->language = htmlspecialchars(strip_tags($this->language));
-            // bind values
-            $stmt->bindParam(":title", $this->title);
-            $stmt->bindParam(":original_title", $this->original_title);
-            $stmt->bindParam(":year_of_publication", $this->year_of_publication);
-            $stmt->bindParam(":genre", $this->genre);
-            $stmt->bindParam(":millions_sold", $this->millions_sold);
-            $stmt->bindParam(":language", $this->language);
-            $stmt->commit();
+            $this->image_path = htmlspecialchars(strip_tags($this->image_path));
+
+            // Query 1: Attempt to insert book image
+            $sql = "INSERT INTO book_images (path) VALUES ( ? )";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $this->image_path
+                )
+            );
+            // Fetch id of the recently inserted image
+            $book_image_id = $pdo->lastInsertId();
+
+            // Query 2: Attempt to insert Book
+            $sql = "INSERT INTO books (title, original_title, year_of_publication, genre, millions_sold, language, book_image_id)
+                VALUES (:title, :original_title, :year_of_publication, :genre, :millions_sold, :language, :book_image_id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ":title" => $this->title,
+                ":original_title" => $this->original_title,
+                ":year_of_publication" => $this->year_of_publication,
+                ":genre" => $this->genre,
+                ":millions_sold" => $this->millions_sold,
+                ":language" => $this->language,
+                ":book_image_id" => $book_image_id
+            ));
+            // Commit the Changes
+            $pdo->commit();
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
             // Recognize mistake and roll back changes
-            $stmt->rollBack();
+            $pdo->rollBack();
             die();
         }
         return true;
@@ -143,7 +145,7 @@ class Book
 
     function delete()
     {
-        $query = "DELETE FROM book WHERE id = :id";
+        $query = "DELETE FROM books WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
