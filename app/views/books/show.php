@@ -21,5 +21,8 @@
                 <p>{{ language }}</p>
             </li>
         </ul>
+        <router-link :to="{ name: 'edit', params: { id: this.$route.params.id }}" class="button">
+            Edit
+        </router-link>
     </div>
 </script>
