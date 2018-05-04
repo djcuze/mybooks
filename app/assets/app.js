@@ -61,6 +61,10 @@ let show_book = {
 
     }
 };
+
+let login = {
+    template: '#login_template'
+};
 let edit_book = {
         name: 'show_book',
         template: '#edit_book_template',
@@ -177,7 +181,8 @@ let routes = [
     {path: '/new', component: new_book},
     {name: 'book', path: '/book/:id', component: show_book},
     {name: 'edit', path: '/edit/:id', component: edit_book},
-    {path: '/registration', component: registration_form}
+    {path: '/registration', component: registration_form},
+    {path: '/login', component: login}
 ];
 let router = new VueRouter({
     routes,

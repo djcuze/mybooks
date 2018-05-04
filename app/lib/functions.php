@@ -24,27 +24,22 @@ class func
 
                 // If the password matches the hashed_password
                 if (password_verify($password, $hashed_password)) {
+                    session_start();
                     // Log the user in
-                    header("location:/assignment_3/");
+                    $_SESSION['notice'] = 'Successfully logged in';
+                    $_SESSION['css'] = 'success';
                     $_SESSION['loggedIn'] = true;
-                    $_SESSION['notice'] = null;
-                    echo 'works';
+                    header('Location:/assignment_3');
                 } else {
                     $_SESSION['notice'] = 'Incorrect username and/or password';
                     $_SESSION['css'] = 'error';
-                    $_SESSION['loggedIn'] = false;
-                    include 'app/views/layout/login.php';
-                    echo 'Incorrect username';
-                    exit();
                 }
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
         } else {
             // If not logged in
-            if (!isset($_SESSION['loggedIn'])) {
-                include 'app/views/layout/login.php';
-                exit();
+            if (isset($_SESSION['loggedIn'])) {
             }
         }
     }

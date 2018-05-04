@@ -17,3 +17,4 @@ require_once 'app/views/books/show.php';
 require_once 'app/views/books/new.php';
 require_once 'app/views/books/edit.php';
 require_once 'app/views/layout/registration.php';
+require_once 'app/views/layout/login.php';

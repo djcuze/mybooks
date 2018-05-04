@@ -12,12 +12,8 @@
             <p class="book__title">{{ book.title }}</p>
             <p>{{ book.author }}</p>
             <div class="book__buttons" @click.stop>
-                <router-link :to="{ name: 'edit', params: { id: book.id }}" class="button">
-                    Edit
-                </router-link>
-                <a href="#" class="button" @click="deleteBook(book.id)">
-                    Delete
-                </a>
+                <router-link :to="{ name: 'edit', params: { id: book.id }}" class="button">Edit</router-link>
+                <a href="#" class="button" @click="deleteBook(book.id)">Delete</a>
             </div>
         </router-link>
     </section>

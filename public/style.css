@@ -63,13 +63,13 @@ h1 {
     justify-content: space-between;
 }
 
-.navigation a {
+.header a {
     color: white;
     text-decoration: none;
     margin-right: 1rem;
 }
 
-.navigation > a:hover {
+.header > a:hover {
     color: yellow;
 }
 
@@ -239,7 +239,7 @@ textarea:valid + span:after {
 .login {
     align-items: center;
     justify-content: center;
-    margin-top: 10%;
+    margin: 10% 0;
 }
 
 /* Footer */
@@ -248,4 +248,24 @@ footer {
     color: white;
     background-color: #333333;
     padding: 2rem 0;
+}
+
+/* Buttons */
+
+.button {
+    color: white;
+    background-color: #333333;
+    padding: .5rem 1rem;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    font-weight: bold;
+    max-width: 150px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.button:hover {
+    background-color: #f1e015;
+    color: black;
 }
