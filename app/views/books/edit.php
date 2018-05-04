@@ -5,7 +5,7 @@
         <ul>
             <input type="hidden" :value="id" name="id">
             <li><span>Title: </span>
-                <input class="form__input" name="title"/>
+                <input class="form__input" name="title" :value="title"/>
             </li>
             <li><span>Publication Year: </span>
                 <input class="form__input" name="year_of_publication" :value="year_of_publication"/>

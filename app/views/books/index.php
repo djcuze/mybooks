@@ -6,10 +6,10 @@
                 {{ this.$parent.notice.message }}
             </p>
         </div>
-        <div v-for="book in booksArray" class="book">
+        <router-link :to="{ name: 'book', params: { id: book.id }}" v-for="book in booksArray" class="book" :key="book.id">
             <img :src="book.image_path" alt="" class="book__cover"/>
-            <router-link :to="{ name: 'book', params: { id: book.id }}"class="book__title">
-                {{ book.title }}</router-link>
+            <p class="book__title" >{{ book.title }}</p>
+            <p>{{ book.author }}</p>
             <div class="book__buttons">
                 <router-link :to="{ name: 'edit', params: { id: book.id }}" class="button">
                     Edit
@@ -18,6 +18,6 @@
                     Delete
                 </a>
             </div>
-        </div>
+        </router-link>
     </section>
 </script>

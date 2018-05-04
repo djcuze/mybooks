@@ -22,7 +22,7 @@ class Book
 
     function read()
     {
-        $query = "SELECT books.*, i.path AS image_path FROM books INNER JOIN book_images i ON books.book_image_id = i.id";
+        $query = "SELECT * FROM books_complete_view";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -43,19 +43,12 @@ class Book
             $this->language = htmlspecialchars(strip_tags($this->language));
             $this->image_path = htmlspecialchars(strip_tags($this->image_path));
 
-            // Query 1: Attempt to insert book image
-            $sql = "INSERT INTO book_images (path) VALUES ( ? )";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                    $this->image_path
-                )
-            );
-            // Fetch id of the recently inserted image
-            $book_image_id = $pdo->lastInsertId();
+            // Author ID
+//            $author_id = 7;
 
-            // Query 2: Attempt to insert Book
-            $sql = "INSERT INTO books (title, original_title, year_of_publication, genre, millions_sold, language, book_image_id)
-                VALUES (:title, :original_title, :year_of_publication, :genre, :millions_sold, :language, :book_image_id)";
+            // Query 1: Attempt to insert Book
+            $sql = "INSERT INTO books (title, original_title, year_of_publication, genre, millions_sold, language)
+                VALUES (:title, :original_title, :year_of_publication, :genre, :millions_sold, :language)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
                 ":title" => $this->title,
@@ -64,8 +57,29 @@ class Book
                 ":genre" => $this->genre,
                 ":millions_sold" => $this->millions_sold,
                 ":language" => $this->language,
-                ":book_image_id" => $book_image_id
+//                ":author_id" => $author_id
             ));
+            $book_id = $pdo->lastInsertId();
+
+            // Query 2: Attempt to insert book image
+            $sql = "INSERT INTO images (path) VALUES ( ? )";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $this->image_path
+                )
+            );
+            // Fetch id of the recently inserted image
+            $book_image_id = $pdo->lastInsertId();
+
+            // Plot ID
+            $plot_id = 1;
+
+            // Query 3: Add to book_images
+            $sql = "INSERT INTO book_images SET book_id = $book_id, image_id = $book_image_id";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+
             // Commit the Changes
             $pdo->commit();
         } catch (PDOException $e) {
@@ -81,12 +95,8 @@ class Book
     {
         // query to read single record
         $query = "
-            SELECT    
-              books.*, 
-              i.path AS image_path 
-            FROM books 
-            INNER JOIN book_images i ON books.book_image_id = i.id 
-            WHERE books.id = :id LIMIT 1
+            SELECT * FROM books_complete_view
+            WHERE id = :id LIMIT 1;
             ";
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -102,6 +112,8 @@ class Book
         $this->millions_sold = $row['millions_sold'];
         $this->language = $row['language'];
         $this->image_path = $row['image_path'];
+        $this->plot = $row['plot'];
+        $this->author = $row['author'];
     }
 
     function update()

@@ -2,6 +2,7 @@
     <div class="book">
         <div>
             <h1 class="book__title">{{ title }}</h1>
+            <h2 class="book__author">{{ author }}</h2>
             <img :src='image_path' alt='A Book Cover' class='book__cover'/>
         </div>
         <ul>
@@ -19,6 +20,11 @@
             </li>
             <li><span>Language: </span>
                 <p>{{ language }}</p>
+            </li>
+        </ul>
+        <ul class="plot">
+            <li><span>Plot</span>
+                <p>{{ plot }}</p>
             </li>
         </ul>
         <router-link :to="{ name: 'edit', params: { id: this.$route.params.id }}" class="button">

@@ -32,7 +32,9 @@ let show_book = {
             genre: null,
             language: null,
             millions_sold: null,
-            image_path: null
+            image_path: null,
+            plot: null,
+            author: null
         }
     },
     mounted() {
@@ -50,6 +52,8 @@ let show_book = {
                     this.millions_sold = response.data.millions_sold;
                     this.language = response.data.language;
                     this.image_path = response.data.image_path;
+                    this.plot = response.data.plot;
+                    this.author = response.data.author;
                 })
         }
     },

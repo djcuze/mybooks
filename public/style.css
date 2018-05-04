@@ -13,42 +13,6 @@ h1 {
     margin-bottom: .75rem;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form li {
-    list-style: none;
-}
-
-form li span {
-    display: block;
-    font-weight: bold;
-}
-
-form input:not(.submit) {
-    width: 15rem;
-    padding: .375rem;
-    margin: 0.25rem 0 0.5rem;
-}
-
-.submit {
-    align-self: center;
-}
-
-form textarea {
-    width: 100%;
-    padding: .5rem;
-    min-height: 8rem;
-}
-
-form ul:first-of-type {
-    display: grid;
-    grid-row: 1;
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-}
-
 /* Notice */
 .notice > p {
     padding: 1rem;
@@ -126,7 +90,8 @@ form ul:first-of-type {
     padding: 1rem;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .book__title {
@@ -176,9 +141,62 @@ form ul:first-of-type {
     padding-left: 1rem;
 }
 
-/* Valid Form Inputs */
+.plot {
+    margin: 1rem 0 2rem;
+    line-height: 1.25rem;
+}
 
-input + span:after {
+/* Forms */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form li {
+    list-style: none;
+}
+
+form li span {
+    display: block;
+    font-weight: bold;
+}
+
+form input:not(.submit) {
+    width: 15rem;
+    padding: .375rem;
+    margin: 0.25rem 0 0.5rem;
+}
+
+.submit {
+    align-self: center;
+}
+
+form textarea {
+    width: 100%;
+    padding: .5rem;
+    min-height: 8rem;
+}
+
+form ul:first-of-type {
+    padding-top: 1rem;
+}
+
+form ul {
+    border-bottom: 1px solid #dddddd;
+    width: 100%;
+    padding: 3rem 0;
+}
+
+form ul:not(.no-grid) {
+    display: grid;
+    grid-row: 1;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+}
+
+/* Valid Form Inputs */
+input + span:after,
+textarea + span:after {
     font-size: .65rem;
     display: block;
     margin-bottom: 1rem;
@@ -186,24 +204,33 @@ input + span:after {
     text-align: right;
 }
 
-input:invalid + span:after {
+textarea + span:after {
+    margin-top: .5rem;
+}
+
+input:invalid + span:after,
+textarea:invalid + span:after {
     color: red;
 }
 
-input:valid + span:after {
+input:valid + span:after,
+textarea:valid + span:after {
     color: limegreen
 }
 
-#registration_form input:valid + span:after {
+#registration_form input:valid + span:after,
+#registration_form textarea:valid + span:after {
     content: 'Requirements met';
 }
 
 /*  Invalid Form Inputs */
-#registration_form input:invalid + span:after {
+#registration_form input:invalid + span:after,
+#registration_form textarea:invalid + span:after {
     content: '* 6-10 characters, a-Z, 0-9';
 }
 
-#book_form input:invalid + span:after {
+#book_form input:invalid + span:after,
+#book_form textarea:invalid + span:after {
     content: '* Required Field';
     text-align: left;
 }

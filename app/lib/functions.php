@@ -33,6 +33,7 @@ class func
                     $_SESSION['css'] = 'error';
                     $_SESSION['loggedIn'] = false;
                     include 'app/views/layout/login.php';
+                    echo 'Incorrect username';
                     exit();
                 }
             } catch (PDOException $e) {
@@ -41,6 +42,7 @@ class func
         } else {
             // If not logged in
             if (!isset($_SESSION['loggedIn'])) {
+                echo 'not logged in';
                 include 'app/views/layout/login.php';
                 exit();
             }
