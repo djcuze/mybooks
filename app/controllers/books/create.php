@@ -31,6 +31,10 @@ if ($book->create()) {
     echo '{';
     echo '"message": "Book was created."';
     echo '}';
+    header('Location:/assignment_3/');
+    session_start();
+    $_SESSION['notice'] = 'Book created successfully!';
+    $_SESSION['css'] = 'success';
 } // if unable to create the book, tell the user
 else {
     echo '{';

@@ -1,5 +1,5 @@
 <script type="x-template" id="registration_template">
-    <form method="post" class="login" action="app/lib/register.php">
+    <form method="post" class="login" action="app/lib/register.php" id="registration_form">
         <h1>Register</h1>
         <span class="form__input">
             <input type="text" placeholder="username" name="username" id="username" required minlength="6" maxlength="10"/>

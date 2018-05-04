@@ -176,22 +176,36 @@ form ul:first-of-type {
     padding-left: 1rem;
 }
 
-input:valid + span:after {
-    display: block;
-    content: 'Requirements met';
-    margin-bottom: 1rem;
-    color: limegreen;
+/* Valid Form Inputs */
+
+input + span:after {
     font-size: .65rem;
-    text-align:right;
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    text-align: right;
 }
 
 input:invalid + span:after {
-    display: block;
-    content: '* 6-10 characters, a-Z, 0-9';
     color: red;
-    font-size: .65rem;
-    margin-bottom: 1rem;
-    text-align: right;
+}
+
+input:valid + span:after {
+    color: limegreen
+}
+
+#registration_form input:valid + span:after {
+    content: 'Requirements met';
+}
+
+/*  Invalid Form Inputs */
+#registration_form input:invalid + span:after {
+    content: '* 6-10 characters, a-Z, 0-9';
+}
+
+#book_form input:invalid + span:after {
+    content: '* Required Field';
+    text-align: left;
 }
 
 /* Login */

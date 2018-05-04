@@ -7,8 +7,10 @@ $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$username = $_POST['username'];
+$password = $_POST['password'];
 // Create a user
-func::createUser($_POST['username'], $_POST['password'], $db);
+func::createUser($username, $password, $db);
 
 //header('location:/assignment_3');
 

@@ -11,14 +11,15 @@ class func
                 // Query the database for a match
                 $query = "SELECT * FROM users WHERE name = :username";
 
-                $username = $_POST['username'];
+                // Sanitize
+                $username = htmlspecialchars(strip_tags($_POST['username']));
+                $password = htmlspecialchars(strip_tags($_POST['password']));
 
                 $stmt = $db->prepare($query);
                 $stmt->execute(array(':username' => $username));
 
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $password = $_POST['password'];
                 $hashed_password = $row['pass'];
 
                 // If the password matches the hashed_password
@@ -61,11 +62,15 @@ class func
                     pass = :password
                     ";
 
+                // Sanitize
+                $sanitized_username = htmlspecialchars(strip_tags($username));
+                $sanitized_password = htmlspecialchars(strip_tags($password));
+
                 // Hash the password
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $hashed_password = password_hash($sanitized_password, PASSWORD_DEFAULT);
 
                 $stmt = $db->prepare($query);
-                $stmt->execute(array(':username' => $username, ':password' => $hashed_password));
+                $stmt->execute(array(':username' => $sanitized_username, ':password' => $hashed_password));
 
 
                 session_start();
