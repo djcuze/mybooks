@@ -162,6 +162,23 @@ let books_index = {
     template: '#show_all_books_template',
 };
 
+let login = {
+    data() {
+        return {
+            user: null,
+            pass: null
+        }
+    },
+    methods: {
+        login() {
+            axios.post('/assignment_3/app/lib/login.php', {
+                user: user,
+                pass: pass,
+            })
+        }
+    },
+}
+
 let routes = [
     // more info on VueJS Routing:      https://router.vuejs.org/en/essentials/getting-started.html
     {path: '/', component: books_index},

@@ -15,8 +15,9 @@
 </head>
 <body>
 <main id="app">
-    <?php include_once 'app/views/layout/header.php' ?>
+    <?php include_once 'app/views/layout/header.php'; ?>
     <router-view class="content"></router-view>
+    <?php include_once 'app/views/layout/footer.php'; ?>
 </main>
 </body
 </html>

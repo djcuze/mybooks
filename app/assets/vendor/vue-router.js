@@ -1825,7 +1825,7 @@
     }
 
 // in Webpack 2, require.ensure now also returns a Promise
-// so the resolve/reject functions may get called an extra time
+// so the resolve/reject functions.php may get called an extra time
 // if the user uses an arrow function shorthand that happens to
 // return that Promise.
     function once (fn) {

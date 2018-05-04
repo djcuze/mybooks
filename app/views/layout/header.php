@@ -4,4 +4,5 @@
         <router-link to="/new">New Book</router-link>
     </ul>
     <button>Login</button>
+    <a href="app/lib/logout.php">Logout</a>
 </header>

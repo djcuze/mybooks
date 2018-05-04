@@ -126,7 +126,7 @@
 
             /*global toString:true*/
 
-            // utils is a library of generic helper functions non-specific to axios
+            // utils is a library of generic helper functions.php non-specific to axios
 
             var toString = Object.prototype.toString;
 
@@ -1411,7 +1411,7 @@
              *
              * @param {Object|String} data The data to be transformed
              * @param {Array} headers The headers for the request or response
-             * @param {Array|Function} fns A single function or Array of functions
+             * @param {Array|Function} fns A single function or Array of functions.php
              * @returns {*} The resulting transformed data
              */
             module.exports = function transformData(data, headers, fns) {
