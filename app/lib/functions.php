@@ -28,6 +28,7 @@ class func
                     header("location:/assignment_3/");
                     $_SESSION['loggedIn'] = true;
                     $_SESSION['notice'] = null;
+                    echo 'works';
                 } else {
                     $_SESSION['notice'] = 'Incorrect username and/or password';
                     $_SESSION['css'] = 'error';
@@ -42,7 +43,6 @@ class func
         } else {
             // If not logged in
             if (!isset($_SESSION['loggedIn'])) {
-                echo 'not logged in';
                 include 'app/views/layout/login.php';
                 exit();
             }

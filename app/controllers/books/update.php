@@ -31,9 +31,10 @@ $book->language = $_POST['language'];
 
 // update the book
 if ($book->update()) {
-    echo '{';
-    echo '"message": "Book was updated successfully."';
-    echo '}';
+    session_start();
+    $_SESSION['notice'] = 'Book was updated successfully.';
+    $_SESSION['css'] = 'success';
+    header('location:/assignment_3');
 } // if unable to create the book, tell the user
 else {
     echo '{';

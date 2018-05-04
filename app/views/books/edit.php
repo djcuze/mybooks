@@ -1,7 +1,7 @@
 <script type="text/x-template" id="edit_book_template">
     <form method="post" action="/assignment_3/app/controllers/books/update.php" enctype="multipart/form-data">
         <h1>Edit Book</h1>
-        <img :src="image_path" alt="" />
+        <img :src="image_path" alt="" class="book__cover"/>
         <ul>
             <input type="hidden" :value="id" name="id">
             <li><span>Title: </span>
