@@ -32,6 +32,10 @@ $book->author_surname = $_POST['author_surname'];
 $book->author_nationality = $_POST['author_nationality'];
 $book->author_birth_year = $_POST['author_birth_year'];
 
+// Plot
+$book->plot_summary = $_POST['plot_summary'];
+$book->plot_source = $_POST['plot_source'];
+
 // create the book
 if ($book->create()) {
     echo '{';

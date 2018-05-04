@@ -54,16 +54,16 @@
             </li>
         </ul>
         <!--    Fields for Plot    -->
-<!--        <ul class="no-grid">-->
-<!--            <li><span>Plot Summary</span>-->
-<!--                <textarea name="plot_summary" id="plot_summary" required title="plot_summary"></textarea>-->
-<!--                <span></span>-->
-<!--            </li>-->
-<!--            <li><span>Source </span>-->
-<!--                <input type="text" name="plot_source" id="plot_source" required title="plot_source"/>-->
-<!--                <span></span>-->
-<!--            </li>-->
-<!--        </ul>-->
+        <ul class="no-grid">
+            <li><span>Plot Summary</span>
+                <textarea name="plot_summary" id="plot_summary" required title="plot_summary"></textarea>
+                <span></span>
+            </li>
+            <li><span>Source </span>
+                <input type="text" name="plot_source" id="plot_source" required title="plot_source"/>
+                <span></span>
+            </li>
+        </ul>
         <!--    Fields for Image    -->
         <ul class="no-grid">
             <li><span>Upload Image: </span>

@@ -19,6 +19,9 @@ class Book
     public $author_surname;
     public $author_nationality;
     public $author_birth_year;
+    // plot
+    public $plot_summary;
+    public $plot_source;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -55,6 +58,10 @@ class Book
             $this->author_nationality = htmlspecialchars(strip_tags($this->author_nationality));
             $this->author_birth_year = htmlspecialchars(strip_tags($this->author_birth_year));
 
+            // Plot
+            $this->plot_summary = htmlspecialchars(strip_tags($this->plot_summary));
+            $this->plot_source = htmlspecialchars(strip_tags($this->plot_source));
+
             // Query 1: Attempt to insert Book
             $sql = "INSERT INTO books (title, original_title, year_of_publication, genre, millions_sold, language)
                 VALUES (:title, :original_title, :year_of_publication, :genre, :millions_sold, :language)";
@@ -78,9 +85,6 @@ class Book
             );
             // Fetch id of the recently inserted image
             $book_image_id = $pdo->lastInsertId();
-
-            // Plot ID
-            $plot_id = 1;
 
             // Query 3: Add to book_images
             $sql = "INSERT INTO book_images SET book_id = $book_id, image_id = $book_image_id";
@@ -108,6 +112,22 @@ class Book
 
             // Query 5: Add to book_authors
             $sql = "INSERT INTO book_authors SET book_id = $book_id, author_id = $author_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+
+            // Query 6: Attempt to insert into plots table
+            $sql = "INSERT INTO plots SET plot = :plot, source = :source";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ":plot" => $this->plot_summary,
+                ":source" => $this->plot_source
+            ));
+
+            // Fetch the Plot ID
+            $plot_id = $pdo->lastInsertId();
+
+            // Query 7: Add to Book Plots
+            $sql = "INSERT INTO book_plots SET book_id = $book_id, plot_id = $plot_id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
 
