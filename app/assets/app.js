@@ -162,22 +162,15 @@ let books_index = {
     template: '#show_all_books_template',
 };
 
-let login = {
+let registration_form = {
     data() {
         return {
-            user: null,
-            pass: null
+            username: null,
+            password: null
         }
     },
-    methods: {
-        login() {
-            axios.post('/assignment_3/app/lib/login.php', {
-                user: user,
-                pass: pass,
-            })
-        }
-    },
-}
+    template: '#registration_template'
+};
 
 let routes = [
     // more info on VueJS Routing:      https://router.vuejs.org/en/essentials/getting-started.html
@@ -185,6 +178,7 @@ let routes = [
     {path: '/new', component: new_book},
     {name: 'book', path: '/book/:id', component: show_book},
     {name: 'edit', path: '/edit/:id', component: edit_book},
+    {path: '/registration', component: registration_form}
 ];
 let router = new VueRouter({
     routes,

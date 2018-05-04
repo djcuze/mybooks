@@ -16,6 +16,13 @@
 <body>
 <main id="app">
     <?php include_once 'app/views/layout/header.php'; ?>
+    <?php if (isset($_SESSION['notice'])) { ?>
+        <div class="notice">
+            <p class="<?= $_SESSION['css'] ?>">
+                <?= $_SESSION['notice'] ?>
+            </p>
+        </div>
+    <?php } ?>
     <router-view class="content"></router-view>
     <?php include_once 'app/views/layout/footer.php'; ?>
 </main>
