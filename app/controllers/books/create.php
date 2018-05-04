@@ -26,6 +26,12 @@ $book->millions_sold = $_POST['millions_sold'];
 $book->language = $_POST['language'];
 $book->image_path = 'public/covers/' . $_FILES["fileToUpload"]["name"];
 
+// Author
+$book->author_first_name = $_POST['author_first_name'];
+$book->author_surname = $_POST['author_surname'];
+$book->author_nationality = $_POST['author_nationality'];
+$book->author_birth_year = $_POST['author_birth_year'];
+
 // create the book
 if ($book->create()) {
     echo '{';

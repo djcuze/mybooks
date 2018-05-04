@@ -13,6 +13,12 @@ class Book
     public $millions_sold;
     public $language;
     public $image_path;
+    public $plot;
+    // author
+    public $author_first_name;
+    public $author_surname;
+    public $author_nationality;
+    public $author_birth_year;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -43,8 +49,11 @@ class Book
             $this->language = htmlspecialchars(strip_tags($this->language));
             $this->image_path = htmlspecialchars(strip_tags($this->image_path));
 
-            // Author ID
-//            $author_id = 7;
+            // Author
+            $this->author_first_name = htmlspecialchars(strip_tags($this->author_first_name));
+            $this->author_surname = htmlspecialchars(strip_tags($this->author_surname));
+            $this->author_nationality = htmlspecialchars(strip_tags($this->author_nationality));
+            $this->author_birth_year = htmlspecialchars(strip_tags($this->author_birth_year));
 
             // Query 1: Attempt to insert Book
             $sql = "INSERT INTO books (title, original_title, year_of_publication, genre, millions_sold, language)
@@ -56,8 +65,7 @@ class Book
                 ":year_of_publication" => $this->year_of_publication,
                 ":genre" => $this->genre,
                 ":millions_sold" => $this->millions_sold,
-                ":language" => $this->language,
-//                ":author_id" => $author_id
+                ":language" => $this->language
             ));
             $book_id = $pdo->lastInsertId();
 
@@ -76,7 +84,30 @@ class Book
 
             // Query 3: Add to book_images
             $sql = "INSERT INTO book_images SET book_id = $book_id, image_id = $book_image_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
 
+            // Query 4: Attempt to insert into Authors
+            $sql = "INSERT INTO authors 
+                SET
+                name = :name,
+                surname = :surname,
+                nationality = :nationality,
+                birth_year = :birth_year 
+                ";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ":name" => $this->author_first_name,
+                ":surname" => $this->author_surname,
+                ":nationality" => $this->author_nationality,
+                ":birth_year" => $this->author_birth_year
+            ));
+
+            // Fetch the author ID
+            $author_id = $pdo->lastInsertId();
+
+            // Query 5: Add to book_authors
+            $sql = "INSERT INTO book_authors SET book_id = $book_id, author_id = $author_id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
 
