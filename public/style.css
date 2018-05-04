@@ -241,3 +241,11 @@ textarea:valid + span:after {
     justify-content: center;
     margin-top: 10%;
 }
+
+/* Footer */
+footer {
+    text-align: center;
+    color: white;
+    background-color: #333333;
+    padding: 2rem 0;
+}

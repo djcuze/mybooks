@@ -148,12 +148,7 @@ let books_index = {
                 id: id
             }).catch(error => {
                 console.log(error);
-                this.$parent.notice.message = 'There was an error deleting the book';
-                this.$parent.notice.css = 'error';
             });
-            this.$router.push('/');
-            this.$parent.notice.message = 'Book Deleted Successfully';
-            this.$parent.notice.css = 'success';
             this.fetchData();
         },
     },

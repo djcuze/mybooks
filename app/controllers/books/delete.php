@@ -18,14 +18,13 @@ $data = json_decode(file_get_contents("php://input"));
 
 $book->id = $data->id;
 // delete the product
-if($book->delete()){
-    echo '{';
-    echo '"message": "Book was deleted."';
-    echo '}';
-}
-
-// if unable to delete the product
-else{
+if ($book->delete()) {
+    header('location:/assignment_3');
+    session_start();
+    $_SESSION['notice'] = 'Book was deleted successfully';
+    $_SESSION['css'] = 'success';
+} // if unable to delete the product
+else {
     echo '{';
     echo '"message": "Unable to delete Book."';
     echo '}';
