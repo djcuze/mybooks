@@ -1,5 +1,5 @@
 <script type="text/x-template" id="new_book_template">
-    <form method="post" action="/assignment_3/app/controllers/books/create.php" enctype="multipart/form-data"
+    <form method="post" action="/mybooks/app/controllers/books/create.php" enctype="multipart/form-data"
           id="book_form">
         <h1>New Book</h1>
         <ul>

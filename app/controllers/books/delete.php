@@ -19,7 +19,7 @@ $data = json_decode(file_get_contents("php://input"));
 $book->id = $data->id;
 // delete the product
 if ($book->delete()) {
-    header('location:/assignment_3');
+    header('location:/mybooks');
     session_start();
     $_SESSION['notice'] = 'Book was deleted successfully';
     $_SESSION['css'] = 'success';

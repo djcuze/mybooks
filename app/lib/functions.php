@@ -29,7 +29,7 @@ class func
                     $_SESSION['notice'] = 'Successfully logged in';
                     $_SESSION['css'] = 'success';
                     $_SESSION['loggedIn'] = true;
-                    header('Location:/assignment_3');
+                    header('Location:/mybooks');
                 } else {
                     $_SESSION['notice'] = 'Incorrect username and/or password';
                     $_SESSION['css'] = 'error';
@@ -75,10 +75,10 @@ class func
                 $_SESSION['css'] = 'success';
 
                 // Loads the home-page
-                header('Location:/assignment_3');
+                header('Location:/mybooks');
 
             } catch (PDOException $e) {
-                header('location:/assignment_3/#/registration');
+                header('location:/mybooks/#/registration');
 
                 // gives us access to the $_SESSION super-global
                 session_start();

@@ -42,7 +42,7 @@ let show_book = {
     },
     methods: {
         fetchData() {
-            axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + this.$route.params.id)
+            axios.get('/mybooks/app/controllers/books/read_one.php?id=' + this.$route.params.id)
                 .then(response => {
                     console.log(response.data);
                     this.title = response.data.title;
@@ -86,7 +86,7 @@ let edit_book = {
         methods: {
             fetchData() {
                 // send AJAX request and receive JSON response
-                axios.get('/assignment_3/app/controllers/books/read_one.php?id=' + this.$route.params.id)
+                axios.get('/mybooks/app/controllers/books/read_one.php?id=' + this.$route.params.id)
                 // assign response values to javascript object data
                     .then(response => {
                         this.id = response.data.id;
@@ -101,7 +101,7 @@ let edit_book = {
             },
             submit() {
                 // send updated parameters to update.php
-                axios.post('/assignment_3/app/controllers/books/update.php', {
+                axios.post('/mybooks/app/controllers/books/update.php', {
                     id: this.id,
                     title: this.title,
                     original_title: this.original_title,
@@ -139,7 +139,7 @@ let books_index = {
     },
     methods: {
         fetchData() {
-            axios.get('/assignment_3/app/controllers/books/read.php')
+            axios.get('/mybooks/app/controllers/books/read.php')
                 .then(response => {
                     this.books = response.data.books;
                 })
@@ -148,7 +148,7 @@ let books_index = {
                 });
         },
         deleteBook(id) {
-            axios.post('/assignment_3/app/controllers/books/delete.php', {
+            axios.post('/mybooks/app/controllers/books/delete.php', {
                 id: id
             }).catch(error => {
                 console.log(error);

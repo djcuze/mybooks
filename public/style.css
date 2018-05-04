@@ -239,7 +239,7 @@ textarea:valid + span:after {
 .login {
     align-items: center;
     justify-content: center;
-    margin: 10% 0;
+    margin: 10% auto;
 }
 
 /* Footer */

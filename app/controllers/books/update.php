@@ -34,7 +34,7 @@ if ($book->update()) {
     session_start();
     $_SESSION['notice'] = 'Book was updated successfully.';
     $_SESSION['css'] = 'success';
-    header('location:/assignment_3');
+    header('location:/mybooks');
 } // if unable to create the book, tell the user
 else {
     echo '{';
