@@ -5,11 +5,13 @@
             <input type="text" placeholder="username" name="username" id="username" class="form__input"/>
             <input type="password" placeholder="password" name="password" id="password" class="form__input"/>
             <input type="submit" name="submit" id="submit"/>
-
-            <p>Or
-                <router-link to="/registration">register</router-link>
-                an account
-            </p>
+            <?php if ($_SESSION['admin'] === true) {
+                ?>
+                <p>Or
+                    <router-link to="/registration">register</router-link>
+                    an account
+                </p>
+            <?php } ?>
         </form>
     <?php } else { ?>
         <div>

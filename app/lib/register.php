@@ -9,8 +9,9 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$access_level = $_POST['access_level'];
 // Create a user
-func::createUser($username, $password, $db);
+func::createUser($username, $password, $access_level, $db);
 
 //header('location:/assignment_3');
 

@@ -27,6 +27,8 @@
                 <p>{{ plot }}</p>
             </li>
         </ul>
-        <router-link :to="{ name: 'edit', params: { id: this.$route.params.id }}" class="button">Edit</router-link>
+        <?php if (isset($_SESSION['loggedIn']) && $_SESSION['admin'] === true) { ?>
+            <router-link :to="{ name: 'edit', params: { id: this.$route.params.id }}" class="button">Edit</router-link>
+        <?php } ?>
     </div>
 </script>

@@ -20,7 +20,9 @@ class func
 
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                $access_level = $row['access_level'];
                 $hashed_password = $row['pass'];
+                print_r($access_level);
 
                 // If the password matches the hashed_password
                 if (password_verify($password, $hashed_password)) {
@@ -29,6 +31,9 @@ class func
                     $_SESSION['notice'] = 'Successfully logged in';
                     $_SESSION['css'] = 'success';
                     $_SESSION['loggedIn'] = true;
+                    if ($access_level === 1) {
+                        $_SESSION['admin'] = true;
+                    }
                     header('Location:/mybooks');
                 } else {
                     $_SESSION['notice'] = 'Incorrect username and/or password';
@@ -39,16 +44,17 @@ class func
             }
         } else {
             // If not logged in
-            if (isset($_SESSION['loggedIn'])) {
+            if (!isset($_SESSION['loggedIn'])) {
+                $_SESSION['admin'] = false;
             }
         }
     }
 
     // Creates a user
-    public static function createUser($username, $password, $db)
+    public static function createUser($username, $password, $access_level, $db)
     {
         // if POST parameters equalling a username and password are found
-        if (isset($_POST['username']) && isset($_POST['password'])) {
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['access_level'])) {
 
             // Insert Query
             try {
@@ -56,19 +62,20 @@ class func
                   INSERT INTO users 
                   SET 
                     name = :username,
-                    pass = :password
+                    pass = :password,
+                    access_level = :access_level
                     ";
 
                 // Sanitize
-                $sanitized_username = htmlspecialchars(strip_tags($username));
-                $sanitized_password = htmlspecialchars(strip_tags($password));
+                $sanitized_username = htmlspecialchars(strip_tags($username), ENT_NOQUOTES);
+                $sanitized_password = htmlspecialchars(strip_tags($password), ENT_NOQUOTES);
+                $sanitized_access_level = htmlspecialchars(strip_tags($access_level), ENT_NOQUOTES);
 
                 // Hash the password
                 $hashed_password = password_hash($sanitized_password, PASSWORD_DEFAULT);
 
                 $stmt = $db->prepare($query);
-                $stmt->execute(array(':username' => $sanitized_username, ':password' => $hashed_password));
-
+                $stmt->execute(array(':username' => $sanitized_username, ':password' => $hashed_password, ':access_level' => $sanitized_access_level));
 
                 session_start();
                 $_SESSION['notice'] = "Registration successful";

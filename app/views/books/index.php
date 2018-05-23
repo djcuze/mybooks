@@ -12,7 +12,7 @@
             <p class="book__title">{{ book.title }}</p>
             <p>{{ book.author }}</p>
 
-            <?php if (isset($_SESSION['loggedIn'])) { ?>
+            <?php if (isset($_SESSION['loggedIn']) && $_SESSION['admin'] === true) { ?>
                 <div class="book__buttons" @click.stop>
                     <router-link :to="{ name: 'edit', params: { id: book.id }}" class="button">Edit</router-link>
                     <a href="#" class="button" @click="deleteBook(book.id)">Delete</a>
